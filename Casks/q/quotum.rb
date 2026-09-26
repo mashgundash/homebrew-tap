@@ -18,6 +18,17 @@ cask "quotum" do
   desc "Menu bar quota monitor for AI coding tools"
   homepage "https://quotum.app/"
 
+  # « brew audit --online » compare la version à celle que livecheck trouve ; sans ce
+  # bloc, il ne trouve rien et l'audit échoue. La stratégie Sparkle seule ne rend que
+  # le build (mesuré) : le bloc recompose « version courte,build », la forme exacte de
+  # « version » ci-dessus.
+  livecheck do
+    url "https://updates.quotum.app/appcast.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.version}"
+    end
+  end
+
   # L'application se met à jour toute seule par Sparkle. Sans cette ligne, « brew
   # upgrade » réinstallerait par-dessus une version que Sparkle vient d'installer,
   # et « brew » signalerait ensuite un écart de version à chaque passage.
@@ -25,8 +36,9 @@ cask "quotum" do
 
   # macOS 26 — « tahoe » chez Homebrew. C'est le plancher que l'Info.plist déclare
   # en « LSMinimumSystemVersion », pas une précaution : l'application emploie Liquid
-  # Glass sans branche de compatibilité.
-  depends_on macos: ">= :tahoe"
+  # Glass sans branche de compatibilité. La forme « ">= :tahoe" » est dépréciée depuis
+  # Homebrew 7 : le symbole seul dit déjà « au moins ».
+  depends_on macos: :tahoe
 
   app "Quotum.app"
 
