@@ -6,8 +6,8 @@ cask "quotum" do
   # Les deux numéros, dans l'ordre où l'Info.plist les porte : la version montrée,
   # puis le build. Homebrew compare la chaîne entière ; « version.csv.second » rend
   # le build, qui est ce que le nom du fichier porte.
-  version "2026.10.10,2026.10.10.2"
-  sha256 "30b7b8ec2f6e68053163d5d317bb3034cc77fa115280d1b2c89f55bc0b9440a4"
+  version "2026.10.11,2026.10.11.1"
+  sha256 "5774bd97f53d35ae3d686a5cfe420de52d551583ef2a2291c00d4948950850a7"
 
   # Le DMG est servi par un sous-domaine de la page d'accueil : pas de « verified: »,
   # et de toute façon le paramètre est DÉPRÉCIÉ depuis Homebrew 6 — « brew audit »
