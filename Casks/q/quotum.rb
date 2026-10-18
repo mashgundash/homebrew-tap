@@ -6,8 +6,8 @@ cask "quotum" do
   # Les deux numéros, dans l'ordre où l'Info.plist les porte : la version montrée,
   # puis le build. Homebrew compare la chaîne entière ; « version.csv.second » rend
   # le build, qui est ce que le nom du fichier porte.
-  version "2026.10.14,2026.10.14.2"
-  sha256 "388f287d858836e6be29c352ac42511d4a4df2d9dbc6cdc260f508f35cdd1efa"
+  version "2026.10.18,2026.10.18.2"
+  sha256 "1c3db05012e66970599e4dd42d855859c769af041075cc54f18418aa602abcf5"
 
   # Le DMG est servi par un sous-domaine de la page d'accueil : pas de « verified: »,
   # et de toute façon le paramètre est DÉPRÉCIÉ depuis Homebrew 6 — « brew audit »
@@ -65,11 +65,23 @@ cask "quotum" do
   #
   # L'autorisation de notifier, enfin, vit dans une base du système : elle se retire
   # dans Réglages Système › Notifications, pas par un fichier.
+  #
+  # « ~/Library/Application Support/Quotum » se vide fichier par fichier, puis se retire
+  # s'il ne reste rien : sur un poste qui compile Quotum, « build.sh » y tient aussi son
+  # compteur de livraison, qu'un « zap » n'a pas à emporter.
   zap trash: [
-    "~/Library/Caches/app.quotum.mac",
-    "~/Library/HTTPStorages/app.quotum.mac",
-    "~/Library/HTTPStorages/app.quotum.mac.binarycookies",
-    "~/Library/Preferences/app.quotum.mac.plist",
-    "~/Library/Saved Application State/app.quotum.mac.savedState",
-  ]
+        "~/Library/Application Support/Quotum/.status.json.tmp",
+        "~/Library/Application Support/Quotum/licence.verrou",
+        "~/Library/Application Support/Quotum/reinitialisations.json",
+        "~/Library/Application Support/Quotum/reinitialisations.json.verrou",
+        "~/Library/Application Support/Quotum/status.json",
+        "~/Library/Caches/app.quotum.mac",
+        "~/Library/Containers/app.quotum.mac.widget",
+        "~/Library/Group Containers/BSV88JY7M9.app.quotum.mac",
+        "~/Library/HTTPStorages/app.quotum.mac",
+        "~/Library/HTTPStorages/app.quotum.mac.binarycookies",
+        "~/Library/Preferences/app.quotum.mac.plist",
+        "~/Library/Saved Application State/app.quotum.mac.savedState",
+      ],
+      rmdir: "~/Library/Application Support/Quotum"
 end
